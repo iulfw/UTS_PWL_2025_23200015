@@ -4,13 +4,69 @@ import { useEffect, useState } from 'react';
 
 export default function PreorderPage() {
 
-  const [formVisible, setFormVisible] = useState(false);
-  const [ order_date, SetOrderDate ] = useState('');
-  const [ order_by, SetOrderBy ] = useState('');
+  const [ formVisible, setFormVisible ] = useState(false);
+  const [ preorders, setpreorders ] = useState([]);
+  const [ order_date, setOrderDate ] = useState('');
+  const [ order_by, setOrderBy ] = useState('');
   const [ selected_package, setSelectedPackage ]= useState('');
   const [ qty, setQty ] = useState('');
-  const [ status, setStatus ] = useState('');
+  const [ is_paid, setStatus ] = useState('');
   const [ msg, setMsg ] = useState('');
+  const [ editId, setEditId ] = useState(null);
+
+  const fetchpreorders = async () => {
+    const res = await fetch('/api/preorder');
+    const data = await res.json();
+    setpreorders(data);
+  };
+
+  useEffect(() => {
+    fetchpreorders();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const method = editId ? 'PUT' : 'POST';
+    const res = await fetch('/api/preorder', {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: editId, order_date, order_by, selected_package, qty, is_paid }),
+    });
+
+    if (res.ok) {
+      setMsg('Saved Successfully!');
+      setOrderDate('');
+      setOrderBy('');
+      setSelectedPackage('');
+      setQty('');
+      setStatus('');
+      setEditId(null);
+      setFormVisible(false);
+      fetchpreorders();
+    } else {
+      setMsg('Failed to Save Data!');
+    }
+  };
+
+  const handleEdit = (item) => {
+      setOrderDate(item.order_date);
+      setOrderBy(item.order_by);
+      setSelectedPackage(item.selected_package);
+      setQty(item.qty);
+      setStatus(item.is_paid);
+      setEditId(item.id);
+      setFormVisible(true);
+  };
+
+  const handleDelete = async (id) => {
+    if (!confirm('Are You Sure?')) return;
+    await fetch('/api/preorder', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+    fetchpreorders();
+  };
 
   return (
     <div className={styles.container}>
@@ -24,7 +80,7 @@ export default function PreorderPage() {
         {formVisible && (
             <div className={styles.formWrapper}>
                 <h3>Input Data Baru</h3>
-                <form>
+                <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                     <span>Tanggal Pesanan</span>
                     <input
@@ -75,7 +131,7 @@ export default function PreorderPage() {
                     <input
                     type="radio"
                     value="Lunas"
-                    checked={status === "Lunas"}
+                    checked={is_paid === "Lunas"}
                     onChange={(e) => setStatus(e.target.value)}
                     />
                     Lunas
@@ -84,7 +140,7 @@ export default function PreorderPage() {
                     <input
                     type="radio"
                     value="Belum Lunas"
-                    checked={status === "Belum Lunas"}
+                    checked={is_paid === "Belum Lunas"}
                     onChange={(e) => setStatus(e.target.value)}
                     />
                     Belum Lunas
@@ -111,6 +167,25 @@ export default function PreorderPage() {
                     <th>Aksi</th>
                 </tr>
                 </thead>
+                <tbody>
+                    {preorders.map((item, index) => (
+                        <tr key={item.id}>
+                        <td>{index + 1}</td>
+                        <td>{item.order_date}</td>
+                        <td>{item.order_by}</td>
+                        <td>{item.selected_package}</td>
+                        <td>{item.qty}</td>
+                        <td>{item.is_paid}</td>
+                        <td><button onClick={() => handleEdit(item)}>Edit</button></td>
+                        <td><button onClick={() => handleDelete(item.id)}>Delete</button></td>
+                        </tr>
+                    ))}
+                    {preorders.length === 0 && (
+                        <tr>
+                        <td colSpan="7">No Data Available</td>
+                        </tr>
+                    )}
+                </tbody>
             </table>    
         </div>
     </div>

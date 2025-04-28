@@ -115,7 +115,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\SS\\2024 2025\\monolithic vs microservices\\uts_pwl_2025\\src\\generated\\prisma",
+      "value": "D:\\23200015\\UTS_PWL_2025_23200015\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -129,7 +129,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\SS\\2024 2025\\monolithic vs microservices\\uts_pwl_2025\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\23200015\\UTS_PWL_2025_23200015\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -143,11 +143,12 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "file:./dev.db"
+        "value": null
       }
     }
   },
