@@ -67,3 +67,8 @@
 .title {
     margin-bottom: 30px;
 }
+
+.tableWrapper th, .tableWrapper td {
+    text-align: center;
+    vertical-align: middle;
+}

@@ -14,7 +14,7 @@ export async function POST(request) {
         });
     }
     const preorder = await prisma.preorder.create({
-        data: { order_date, order_by, selected_package, qty, is_paid },
+        data: { order_date: new Date(order_date), order_by, selected_package, qty: Number(qty), is_paid: is_paid === "Lunas" ? true:false },
     });
     return new Response(JSON.stringify(preorder), { status: 201 });
 }
@@ -25,7 +25,7 @@ export async function PUT(request) {
         status: 400 });
     const preorder = await prisma.preorder.update({
         where: { id },
-        data: { order_date, order_by, selected_package, qty, is_paid },
+        data: { order_date: new Date(order_date), order_by, selected_package, qty: Number(qty), is_paid: is_paid === "Lunas" ? true:false },
     });
     return Response.json(preorder);
 }
