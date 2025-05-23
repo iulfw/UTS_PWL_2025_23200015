@@ -6,6 +6,7 @@ export default function PreorderPage() {
 
   const [ formVisible, setFormVisible ] = useState(false);
   const [ preorders, setpreorders ] = useState([]);
+  const [ pakets, setpakets ] = useState([]);
   const [ order_date, setOrderDate ] = useState('');
   const [ order_by, setOrderBy ] = useState('');
   const [ selected_package, setSelectedPackage ]= useState('');
@@ -20,8 +21,15 @@ export default function PreorderPage() {
     setpreorders(data);
   };
 
+  const fetchpakets = async () => {
+    const res = await fetch('/api/paket');
+    const data = await res.json();
+    setpakets(data);
+  };
+
   useEffect(() => {
     fetchpreorders();
+    fetchpakets();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -108,11 +116,16 @@ export default function PreorderPage() {
                         required
                     >
                         <option value="">Pilih Paket</option>
-                        <option value="Paket 1">Paket 1</option>
+                        {pakets.map((paket) => (
+                          <option key={paket.id} value={paket.id}>
+                            {paket.name}
+                          </option>
+                        ))}
+                        {/* <option value="Paket 1">Paket 1</option>
                         <option value="Paket 2">Paket 2</option>
                         <option value="Paket 3">Paket 3</option>
                         <option value="Paket 4">Paket 4</option>
-                        <option value="Paket 5">Paket 5</option>
+                        <option value="Paket 5">Paket 5</option> */}
                     </select>
                 </div>
                 <div className={styles.formGroup}>
@@ -173,7 +186,7 @@ export default function PreorderPage() {
                         <td>{index + 1}</td>
                         <td>{new Date(item.order_date).toLocaleDateString('en-GB')}</td>
                         <td>{item.order_by}</td>
-                        <td>{item.selected_package}</td>
+                        <td>{item.paket?.name || "Unknown"}</td>
                         <td>{item.qty}</td>
                         <td>{item.is_paid ? 'Lunas':'Belum Lunas'}</td>
                         <td>
