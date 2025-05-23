@@ -11,6 +11,18 @@ export default function PaketPage() {
   const [ desc, setDesc ]= useState('');
   const [ msg, setMsg ] = useState('');
   const [ editId, setEditId ] = useState(null);
+  const [ summary, setSummary ] = useState({});
+
+  const fetchsummary = async () => {
+    const res = await fetch('/api/summary');
+    const data = await res.json();
+
+    const map = {};
+    data.forEach(item => {
+      map[item.selected_package] = item._sum.qty;
+    });
+    setSummary(map);
+  };
 
   const fetchpakets = async () => {
     const res = await fetch('/api/paket');
@@ -20,6 +32,7 @@ export default function PaketPage() {
 
   useEffect(() => {
     fetchpakets();
+    fetchsummary();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -120,6 +133,7 @@ export default function PaketPage() {
                     <th>Kode</th>
                     <th>Nama</th>
                     <th>Deskripsi</th>
+                    <th>Jumlah</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -129,6 +143,7 @@ export default function PaketPage() {
                         <td>{item.code}</td>
                         <td>{item.name}</td>
                         <td>{item.desc}</td>
+                        <td>{summary[item.id] || 0}</td>
                         <td>
                           <button onClick={() => handleEdit(item)}>Edit</button>
                           <button onClick={() => handleDelete(item.id)}>Delete</button>

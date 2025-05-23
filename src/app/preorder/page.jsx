@@ -121,11 +121,6 @@ export default function PreorderPage() {
                             {paket.name}
                           </option>
                         ))}
-                        {/* <option value="Paket 1">Paket 1</option>
-                        <option value="Paket 2">Paket 2</option>
-                        <option value="Paket 3">Paket 3</option>
-                        <option value="Paket 4">Paket 4</option>
-                        <option value="Paket 5">Paket 5</option> */}
                     </select>
                 </div>
                 <div className={styles.formGroup}>
