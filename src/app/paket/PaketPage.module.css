@@ -1,25 +1,24 @@
 .container {
-    padding: 20px;
+    padding: 30px;
     font-family: 'Segoe UI', sans-serif;
 }
 
 .buttonToggle {
-    background-color: #0070f3;
+    background-color: #d8572a;
     color: white;
     border: none;
     padding: 10px 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
 }
 
 .buttonToggle:hover {
-    background-color: #005bb5;
+    background-color: #db7c26;
 }
 
 .formWrapper {
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     margin-bottom: 30px;
     max-width: 500px;
@@ -27,6 +26,12 @@
 
 .formWrapper h1 {
     font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.formWrapper h3 {
+    font-size: 1.2rem;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
@@ -48,24 +53,25 @@
 }
 
 .submitButton {
-    background-color: #28a745;
+    background-color: #5c8001;
     color: white;
-    padding: 10px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 100px;
     cursor: pointer;
 }
 
 .submitButton:hover {
-    background-color: #218838;
+    background-color: #7cb518;
+}
+
+.subtitle {
+    margin-bottom: 50px;
+    font-weight: 300;
 }
 
 .tableWrapper {
     margin-top: 30px;
-}
-
-.title {
-    margin-bottom: 30px;
 }
 
 .tableWrapper th, .tableWrapper td {

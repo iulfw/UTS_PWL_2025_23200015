@@ -78,18 +78,19 @@ export default function PaketPage() {
   return (
     <div className={styles.container}>
         <h1 className={styles.title}>Ayam Penyet Koh Alex</h1>
+        <h2 className={styles.subtitle}>List of Package</h2>
         <button
             className={styles.buttonToggle}
             onClick={() => setFormVisible(!formVisible)}>
-            {formVisible ? 'Tutup Form' : 'Tambah Data'}
+            {formVisible ? 'Close Form' : 'Add Data'}
         </button>
         
         {formVisible && (
             <div className={styles.formWrapper}>
-                <h3>Input Data Baru</h3>
+                <h3>Input New Package</h3>
                 <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
-                    <span>Kode Paket</span>
+                    <span>Code</span>
                     <input
                     type="text"
                     value={code}
@@ -98,27 +99,25 @@ export default function PaketPage() {
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <span>Nama Paket</span>
+                    <span>Package</span>
                     <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Masukkan Nama Paket"
                     required
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <span>Deskripsi</span>
+                    <span>Description</span>
                     <input
                     type="text"
                     value={desc}
                     onChange={(e) => setDesc(e.target.value)}
-                    placeholder="Masukkan Deskripsi Paket"
                     required
                     />
                 </div>
                 <button type="submit">
-                    Simpan
+                    Submit
                 </button>
                 <p>{msg}</p>
                 </form>
@@ -130,10 +129,10 @@ export default function PaketPage() {
                 <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kode</th>
-                    <th>Nama</th>
-                    <th>Deskripsi</th>
-                    <th>Jumlah</th>
+                    <th>Code</th>
+                    <th>Package</th>
+                    <th>Description</th>
+                    <th>Order</th>
                 </tr>
                 </thead>
                 <tbody>

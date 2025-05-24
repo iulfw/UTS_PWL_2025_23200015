@@ -61,7 +61,7 @@ export default function PreorderPage() {
       setOrderBy(item.order_by);
       setSelectedPackage(item.selected_package);
       setQty(item.qty);
-      setStatus(item.is_paid ? 'Lunas':'Belum Lunas');
+      setStatus(item.is_paid ? 'Paid':'Unpaid');
       setEditId(item.id);
       setFormVisible(true);
   };
@@ -79,18 +79,19 @@ export default function PreorderPage() {
   return (
     <div className={styles.container}>
         <h1 className={styles.title}>Ayam Penyet Koh Alex</h1>
+        <h2 className={styles.subtitle}>List of Order</h2>
         <button
             className={styles.buttonToggle}
             onClick={() => setFormVisible(!formVisible)}>
-            {formVisible ? 'Tutup Form' : 'Tambah Data'}
+            {formVisible ? 'Close Form' : 'Add Data'}
         </button>
         
         {formVisible && (
             <div className={styles.formWrapper}>
-                <h3>Input Data Baru</h3>
+                <h3>Input New Order</h3>
                 <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
-                    <span>Tanggal Pesanan</span>
+                    <span>Date</span>
                     <input
                     type="date"
                     value={order_date}
@@ -99,23 +100,22 @@ export default function PreorderPage() {
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <span>Nama Pemesan</span>
+                    <span>Customer</span>
                     <input
                     type="text"
                     value={order_by}
                     onChange={(e) => setOrderBy(e.target.value)}
-                    placeholder="Masukkan Nama Pemesan"
                     required
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <span>Paket</span>
+                    <span>Package</span>
                     <select 
                         value={selected_package}
                         onChange={(e) => setSelectedPackage(e.target.value)}
                         required
                     >
-                        <option value="">Pilih Paket</option>
+                        <option value="">Select Package</option>
                         {pakets.map((paket) => (
                           <option key={paket.id} value={paket.id}>
                             {paket.name}
@@ -124,12 +124,11 @@ export default function PreorderPage() {
                     </select>
                 </div>
                 <div className={styles.formGroup}>
-                    <span>Jumlah</span>
+                    <span>Quantity</span>
                     <input
                     type="text"
                     value={qty}
                     onChange={(e) => setQty(e.target.value)}
-                    placeholder="Input Jumlah"
                     required
                     />
                 </div>
@@ -138,24 +137,24 @@ export default function PreorderPage() {
                     <label>
                     <input
                     type="radio"
-                    value="Lunas"
-                    checked={is_paid === "Lunas"}
+                    value="Paid"
+                    checked={is_paid === "Paid"}
                     onChange={(e) => setStatus(e.target.value)}
                     />
-                    Lunas
+                    Paid
                 </label>
                 <label>
                     <input
                     type="radio"
-                    value="Belum Lunas"
-                    checked={is_paid === "Belum Lunas"}
+                    value="Unpaid"
+                    checked={is_paid === "Unpaid"}
                     onChange={(e) => setStatus(e.target.value)}
                     />
-                    Belum Lunas
+                    Unpaid
                 </label>
                 </div>
                 <button type="submit">
-                    Simpan
+                    Submit
                 </button>
                 <p>{msg}</p>
                 </form>
@@ -167,12 +166,12 @@ export default function PreorderPage() {
                 <thead>
                 <tr>
                     <th>No</th>
-                    <th>Tanggal Pesanan</th>
-                    <th>Nama Pemesan</th>
-                    <th>Paket</th>
-                    <th>Jumlah</th>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Package</th>
+                    <th>Quantity</th>
                     <th>Status</th>
-                    <th>Aksi</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -183,7 +182,7 @@ export default function PreorderPage() {
                         <td>{item.order_by}</td>
                         <td>{item.paket?.name || "Unknown"}</td>
                         <td>{item.qty}</td>
-                        <td>{item.is_paid ? 'Lunas':'Belum Lunas'}</td>
+                        <td>{item.is_paid ? 'Paid':'Unpaid'}</td>
                         <td>
                           <button onClick={() => handleEdit(item)}>Edit</button>
                           <button onClick={() => handleDelete(item.id)}>Delete</button>

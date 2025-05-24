@@ -13,6 +13,6 @@ export async function GET() {
     return NextResponse.json(summary);
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: 'Failed to fetch preorder summary.' }, { status: 500 });
+    return NextResponse.json({ message: 'Failed to Fetch PreOrder Summary.' }, { status: 500 });
   }
 }
