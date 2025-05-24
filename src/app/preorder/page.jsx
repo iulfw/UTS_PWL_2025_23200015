@@ -1,6 +1,7 @@
 "use client";
 import styles from './PreorderPage.module.css';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function PreorderPage() {
 
@@ -78,6 +79,9 @@ export default function PreorderPage() {
 
   return (
     <div className={styles.container}>
+        <Link href="/paket">
+            <button className={styles.buttonNavigate}>Go to Package</button>
+        </Link>
         <h1 className={styles.title}>Ayam Penyet Koh Alex</h1>
         <h2 className={styles.subtitle}>List of Order</h2>
         <button
