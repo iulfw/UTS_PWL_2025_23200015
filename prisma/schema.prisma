@@ -24,3 +24,11 @@ model paket {
   desc  String
   preorders  preorder[]
 }
+
+model customer {
+  id  Int @id @default(autoincrement())
+  name  String
+  phone  String
+  email  String?
+  createdAt  DateTime @default(now())
+}
