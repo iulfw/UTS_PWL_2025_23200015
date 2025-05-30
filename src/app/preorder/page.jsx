@@ -8,9 +8,10 @@ export default function PreorderPage() {
   const [ formVisible, setFormVisible ] = useState(false);
   const [ preorders, setpreorders ] = useState([]);
   const [ pakets, setpakets ] = useState([]);
+  const [ customers, setcustomers ] = useState([]);
   const [ order_date, setOrderDate ] = useState('');
   const [ order_by, setOrderBy ] = useState('');
-  const [ selected_package, setSelectedPackage ]= useState('');
+  const [ selected_package, setSelectedPackage ] = useState('');
   const [ qty, setQty ] = useState('');
   const [ is_paid, setStatus ] = useState('');
   const [ msg, setMsg ] = useState('');
@@ -28,9 +29,16 @@ export default function PreorderPage() {
     setpakets(data);
   };
 
+  const fetchcustomers = async () => {
+    const res = await fetch('/api/customer');
+    const data = await res.json();
+    setcustomers(data);
+  };
+
   useEffect(() => {
     fetchpreorders();
     fetchpakets();
+    fetchcustomers();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -105,12 +113,18 @@ export default function PreorderPage() {
                 </div>
                 <div className={styles.formGroup}>
                     <span>Customer</span>
-                    <input
-                    type="text"
-                    value={order_by}
-                    onChange={(e) => setOrderBy(e.target.value)}
-                    required
-                    />
+                    <select 
+                        value={order_by}
+                        onChange={(e) => setOrderBy(e.target.value)}
+                        required
+                    >
+                        <option value="">Select Customer</option>
+                        {customers.map((customer) => (
+                          <option key={customer.id} value={customer.id}>
+                            {customer.name}
+                          </option>
+                        ))}
+                    </select>
                 </div>
                 <div className={styles.formGroup}>
                     <span>Package</span>
@@ -183,7 +197,7 @@ export default function PreorderPage() {
                         <tr key={item.id}>
                         <td>{index + 1}</td>
                         <td>{new Date(item.order_date).toLocaleDateString('en-GB')}</td>
-                        <td>{item.order_by}</td>
+                        <td>{item.customer?.name || "Unknown"}</td>
                         <td>{item.paket?.name || "Unknown"}</td>
                         <td>{item.qty}</td>
                         <td>{item.is_paid ? 'Paid':'Unpaid'}</td>

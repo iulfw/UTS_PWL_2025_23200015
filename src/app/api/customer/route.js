@@ -8,7 +8,7 @@ export async function GET() {
 }
 
 export async function POST(request) {
-    const { name, phone, email, createdAt } = await request.json();
+    const { name, phone, email } = await request.json();
     if (!name || !phone || !email) {
         return new Response(JSON.stringify({ error: 'All Fields Are Required' }), {
             status: 400,
@@ -21,7 +21,7 @@ export async function POST(request) {
 }
 
 export async function PUT(request) {
-    const { id, name, phone, email, createdAt } = await request.json();
+    const { id, name, phone, email } = await request.json();
     if (!id || !name || !phone || !email) return Response.json({ error: 'Field is Empty' }, { 
         status: 400 });
     const customer = await prisma.customer.update({

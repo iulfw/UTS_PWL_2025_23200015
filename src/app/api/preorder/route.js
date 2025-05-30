@@ -2,7 +2,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET() {
     const data = await prisma.preorder.findMany({
-        include: { paket: true},
+        include: { paket: true, customer: true},
         orderBy: { id: 'asc' },
     });
     return new Response(JSON.stringify(data), { status: 200 });
@@ -16,7 +16,7 @@ export async function POST(request) {
         });
     }
     const preorder = await prisma.preorder.create({
-        data: { order_date: new Date(order_date), order_by, selected_package: Number(selected_package), qty: Number(qty), is_paid: is_paid === "Paid" ? true:false },
+        data: { order_date: new Date(order_date), order_by: Number(order_by), selected_package: Number(selected_package), qty: Number(qty), is_paid: is_paid === "Paid" ? true:false },
     });
     return new Response(JSON.stringify(preorder), { status: 201 });
 }
@@ -27,7 +27,7 @@ export async function PUT(request) {
         status: 400 });
     const preorder = await prisma.preorder.update({
         where: { id },
-        data: { order_date: new Date(order_date), order_by, selected_package: Number(selected_package), qty: Number(qty), is_paid: is_paid === "Paid" ? true:false },
+        data: { order_date: new Date(order_date), order_by: Number(order_by), selected_package: Number(selected_package), qty: Number(qty), is_paid: is_paid === "Paid" ? true:false },
     });
     return Response.json(preorder);
 }
