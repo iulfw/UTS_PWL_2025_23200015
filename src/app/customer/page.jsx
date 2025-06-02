@@ -143,7 +143,7 @@ export default function CustomerPage() {
                         <td>{item.email}</td>
                         <td>{new Date(item.createdAt).toLocaleString('en-GB', { hour12: false })}</td>
                         <td>
-                          <button onClick={() => handleEdit(item)}>Edit</button>
+                          <button style={{ marginRight: '5px' }} onClick={() => handleEdit(item)}>Edit</button>
                           <button onClick={() => handleDelete(item.id)}>Delete</button>
                         </td>
                         </tr>

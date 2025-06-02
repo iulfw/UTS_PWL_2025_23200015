@@ -210,7 +210,7 @@ export default function PreorderPage() {
                         <td>{item.qty}</td>
                         <td>{item.is_paid ? 'Paid':'Unpaid'}</td>
                         <td>
-                          <button onClick={() => handleEdit(item)}>Edit</button>
+                          <button style={{ marginRight: '5px' }} onClick={() => handleEdit(item)}>Edit</button>
                           <button onClick={() => handleDelete(item.id)}>Delete</button>
                         </td>
                         </tr>

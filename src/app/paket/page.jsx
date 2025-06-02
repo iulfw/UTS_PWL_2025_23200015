@@ -156,7 +156,7 @@ export default function PaketPage() {
                         <td>{item.desc}</td>
                         <td>{summary[item.id] || 0}</td>
                         <td>
-                          <button onClick={() => handleEdit(item)}>Edit</button>
+                          <button style={{ marginRight: '5px' }} onClick={() => handleEdit(item)}>Edit</button>
                           <button onClick={() => handleDelete(item.id)}>Delete</button>
                         </td>
                         </tr>
