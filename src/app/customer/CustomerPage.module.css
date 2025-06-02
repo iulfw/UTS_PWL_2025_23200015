@@ -30,6 +30,28 @@
     background-color: #db7c26;
 }
 
+.dropdownNavigate {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 50px;
+    margin-bottom: 40px;
+    padding: 10px 20px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    max-width: 150px;
+}
+
+.dropdownNavigate:hover {
+    background-color: white;
+    color: black;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+}
+
 .formWrapper {
     padding: 20px;
     border-radius: 10px;

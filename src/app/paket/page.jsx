@@ -1,7 +1,7 @@
 "use client";
 import styles from './PaketPage.module.css';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function PaketPage() {
 
@@ -13,6 +13,12 @@ export default function PaketPage() {
   const [ msg, setMsg ] = useState('');
   const [ editId, setEditId ] = useState(null);
   const [ summary, setSummary ] = useState({});
+
+  const router = useRouter();
+  const handleChange = (e) => {
+    const path = e.target.value;
+    if (path) router.push(path);
+  };
 
   const fetchsummary = async () => {
     const res = await fetch('/api/summary');
@@ -78,9 +84,11 @@ export default function PaketPage() {
 
   return (
     <div className={styles.container}>
-        <Link href="/preorder">
-            <button className={styles.buttonNavigate}>Go to PreOrder</button>
-        </Link>
+        <select onChange={handleChange} className={styles.dropdownNavigate}>
+          <option value="">Package</option>
+          <option value="/preorder">Order</option>
+          <option value="/customer">Customer</option>
+        </select>
         <h1 className={styles.title}>Ayam Penyet Koh Alex</h1>
         <h2 className={styles.subtitle}>List of Package</h2>
         <button

@@ -1,7 +1,7 @@
 "use client";
 import styles from './CustomerPage.module.css';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function CustomerPage() {
 
@@ -12,6 +12,12 @@ export default function CustomerPage() {
   const [ email, setEmail ]= useState('');
   const [ msg, setMsg ] = useState('');
   const [ editId, setEditId ] = useState(null);
+
+  const router = useRouter();
+  const handleChange = (e) => {
+    const path = e.target.value;
+    if (path) router.push(path);
+  };
 
   const fetchcustomers = async () => {
     const res = await fetch('/api/customer');
@@ -65,12 +71,11 @@ export default function CustomerPage() {
 
   return (
     <div className={styles.container}>
-        <Link href="/preorder">
-            <button className={styles.buttonNavigate}>Go to PreOrder</button>
-        </Link>
-        <Link href="/paket">
-            <button className={styles.buttonNavigate}>Go to Package</button>
-        </Link>
+        <select onChange={handleChange} className={styles.dropdownNavigate}>
+          <option value="">Customer</option>
+          <option value="/preorder">Order</option>
+          <option value="/paket">Package</option>
+        </select>
         <h1 className={styles.title}>Ayam Penyet Koh Alex</h1>
         <h2 className={styles.subtitle}>List of Customer</h2>
         <button
@@ -136,7 +141,7 @@ export default function CustomerPage() {
                         <td>{item.name}</td>
                         <td>{item.phone}</td>
                         <td>{item.email}</td>
-                        <td>{new Date(item.createdAt).toLocaleDateString('en-GB')}</td>
+                        <td>{new Date(item.createdAt).toLocaleString('en-GB', { hour12: false })}</td>
                         <td>
                           <button onClick={() => handleEdit(item)}>Edit</button>
                           <button onClick={() => handleDelete(item.id)}>Delete</button>
